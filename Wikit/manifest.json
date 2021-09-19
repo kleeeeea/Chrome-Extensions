@@ -1,6 +1,5 @@
 {
   "manifest_version": 2,
-
   "name": "Wikit",
   "description": "Search Wikipedia on the go!",
   "version": "1.0",
@@ -9,14 +8,28 @@
     "48": "icon48.png",
     "16": "icon16.png"
   },
-
   "background": {
-    "scripts": ["eventPage.js"],
+    "scripts": [
+      "eventPage.js"
+    ],
     "persistent": false
   },
-
-  "permissions": [  
-          "tabs",      
-          "contextMenus"
-        ]
+  "commands": {
+    "_execute_browser_action": {
+      "suggested_key": {
+        "default": "Alt+Shift+1"
+      }
+    },
+    "duplicate-tab": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+2",
+        "mac": "Command+Shift+2"
+      },
+      "description": "Duplicates the currently active tab because... why not?"
+    }
+  },
+  "permissions": [
+    "tabs",
+    "contextMenus"
+  ]
 }
