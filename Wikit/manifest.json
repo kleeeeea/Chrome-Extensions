@@ -15,21 +15,36 @@
     "persistent": false
   },
   "commands": {
-    "_execute_browser_action": {
+    "search_youtube1": {
       "suggested_key": {
-        "default": "Alt+Shift+1"
-      }
+        "default": "Alt+Shift+1",
+        "mac": "Command+Shift+X"
+      },
+      "description": "Duplicates the currently active tab because... why not?"
     },
-    "duplicate-tab": {
+    "search_youtube": {
       "suggested_key": {
         "default": "Ctrl+Shift+2",
-        "mac": "Command+Shift+2"
+        "mac": "Command+B"
       },
       "description": "Duplicates the currently active tab because... why not?"
     }
   },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "contentScript.js"
+      ]
+    }
+  ],
   "permissions": [
     "tabs",
-    "contextMenus"
-  ]
+    "contextMenus",
+    "storage",
+    "activeTab",
+    "<all_urls>"
+ ]
 }
