@@ -31,6 +31,13 @@ function search_youtube(text) {
     });
 }
 
+function search_google(text) {
+    var url = "https://www.google.com/search?q=" + fixedEncodeURI(text);
+    chrome.tabs.create({
+        url: url
+    });
+}
+
 chrome.contextMenus.onClicked.addListener(function (clickData) {
     if (clickData.menuItemId == "Wikit" && clickData.selectionText) {
         console.log(clickData.selectionText);
@@ -56,7 +63,7 @@ chrome.contextMenus.onClicked.addListener(function (clickData) {
 
 
 chrome.commands.onCommand.addListener(function (command) {
-    if (command.startsWith('search')) {
+    if (command.startsWith('search_youtube')) {
 
         chrome.tabs.executeScript({
             code: "window.getSelection().toString();"
@@ -66,6 +73,13 @@ chrome.commands.onCommand.addListener(function (command) {
         });
         //https://dev.to/paulasantamaria/adding-shortcuts-to-your-chrome-extension-2i20#:~:text=The%20user%20can%20bind%20the,chrome%3A%2F%2Fextensions%2Fshortcuts%20).&text=Any%20keyboard%20shortcut%20must%20use,We%20can%20also%20use%20Shift%20.
         // duplicateTab();
+    } else if (command.startsWith('search_google')) {
+        chrome.tabs.executeScript({
+            code: "window.getSelection().toString();"
+        }, function (selection) {
+            text = selection[0];
+            search_google(text);
+        });
     } else {
         console.log(`Command ${command} not found`);
     }

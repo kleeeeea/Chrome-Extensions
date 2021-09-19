@@ -20,14 +20,14 @@
         "default": "Alt+Shift+1",
         "mac": "Command+Shift+X"
       },
-      "description": "Duplicates the currently active tab because... why not?"
+      "description": "search_youtube"
     },
-    "search_youtube": {
+    "search_google": {
       "suggested_key": {
         "default": "Ctrl+Shift+2",
-        "mac": "Command+B"
+        "mac": "Command+Shift+Z"
       },
-      "description": "Duplicates the currently active tab because... why not?"
+      "description": "search google"
     }
   },
   "content_scripts": [
