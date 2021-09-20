@@ -1,6 +1,6 @@
 var menuItem = {
-    "id": "Wikit",
-    "title": "Wikit",
+    "id": "UNO",
+    "title": "UNO",
     "contexts": ["selection"]
 };
 
@@ -39,27 +39,37 @@ function search_google(text) {
 }
 
 chrome.contextMenus.onClicked.addListener(function (clickData) {
-    if (clickData.menuItemId == "Wikit" && clickData.selectionText) {
+    if (clickData.menuItemId == "UNO" && clickData.selectionText) {
         console.log(clickData.selectionText);
 
         let text = clickData.selectionText;
 
         let data = {element: "barium"};
 
-        fetch("http://localhost:5000/mlx", {
+        fetch("http://kindsminds.corp.gq1.yahoo.com:2223/mlx", {
             method: "POST",
             body: JSON.stringify(data)
         }).then(res => {
             res.json().then(
                 data => {
-                    console.log("Request complete! response:", res);
+                    console.log("Request complete! response:", data);
                 }
             )
         });
-        // search_youtube(text);
-    }
 
+        chrome.tabs.query({active: true, lastFocusedWindow: true}, tabs => {
+            let url = tabs[0].url;
+            let uno_url = "http://kindsminds.corp.gq1.yahoo.com:2222/uno?input=" + fixedEncodeURI(url) + "&title_only=False&K=5";
+            chrome.tabs.create({
+                url: uno_url
+            });
+
+            // search_youtube(text);
+        });
+
+    }
 });
+
 
 
 chrome.commands.onCommand.addListener(function (command) {
