@@ -1,7 +1,9 @@
+//UNO
+//icons: https://favicon.io/favicon-generator/
 var menuItem = {
     "id": "UNO",
     "title": "UNO",
-    "contexts": ["selection"]
+    "contexts": ["selection", "page"]
 };
 
 chrome.contextMenus.create(menuItem);
@@ -39,10 +41,32 @@ function search_google(text) {
 }
 
 chrome.contextMenus.onClicked.addListener(function (clickData) {
-    if (clickData.menuItemId == "UNO" && clickData.selectionText) {
-        console.log(clickData.selectionText);
+    if (clickData.menuItemId == "UNO") {
+        if (clickData.selectionText) {
+            console.log(clickData.selectionText);
 
-        let text = clickData.selectionText;
+            let text = clickData.selectionText;
+
+            chrome.tabs.query({active: true, lastFocusedWindow: true}, tabs => {
+                let url = tabs[0].url;
+                let uno_url = "http://kindsminds.corp.gq1.yahoo.com:2222/uno?input=" + fixedEncodeURI(text) + "&title_only=False&K=0";
+                chrome.tabs.create({
+                    url: uno_url
+                });
+
+                // search_youtube(text);
+            });
+        } else {
+            chrome.tabs.query({active: true, lastFocusedWindow: true}, tabs => {
+                let url = tabs[0].url;
+                let uno_url = "http://kindsminds.corp.gq1.yahoo.com:2222/uno?input=" + fixedEncodeURI(url) + "&title_only=False&K=5";
+                chrome.tabs.create({
+                    url: uno_url
+                });
+
+                // search_youtube(text);
+            });
+        }
 
         let data = {element: "barium"};
 
@@ -57,19 +81,9 @@ chrome.contextMenus.onClicked.addListener(function (clickData) {
             )
         });
 
-        chrome.tabs.query({active: true, lastFocusedWindow: true}, tabs => {
-            let url = tabs[0].url;
-            let uno_url = "http://kindsminds.corp.gq1.yahoo.com:2222/uno?input=" + fixedEncodeURI(url) + "&title_only=False&K=5";
-            chrome.tabs.create({
-                url: uno_url
-            });
-
-            // search_youtube(text);
-        });
 
     }
 });
-
 
 
 chrome.commands.onCommand.addListener(function (command) {
